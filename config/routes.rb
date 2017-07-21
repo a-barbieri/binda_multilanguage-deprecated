@@ -1,5 +1,6 @@
 BindaMultilanguage::Engine.routes.draw do
+end
 
-	get 'foos', to: 'foos#index'
-
+Binda::Engine.routes.draw do
+  get 'foo', to: 'foo#index'
 end

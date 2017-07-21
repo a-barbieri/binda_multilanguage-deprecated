@@ -1,0 +1,2 @@
+module Binda::FooHelper
+end
