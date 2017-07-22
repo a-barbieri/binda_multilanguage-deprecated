@@ -20,11 +20,19 @@ GIT
       tinymce-rails (>= 4.1, < 4.7)
       tinymce-rails-langs (~> 4.20160310)
 
+GIT
+  remote: git://github.com/shioyama/mobility.git
+  revision: 0bb43e8345eb3513867076d2ec275c9494a80d56
+  ref: fix_generators_location
+  specs:
+    mobility (0.2.0.alpha)
+      i18n (>= 0.6.10, < 0.9)
+      request_store (~> 1.0)
+
 PATH
   remote: .
   specs:
     binda_multilanguage (0.1.0)
-      mobility (~> 0.1)
       rails (>= 5.0, < 5.2)
 
 GEM
@@ -120,9 +128,6 @@ GEM
     mini_magick (4.7.2)
     mini_portile2 (2.2.0)
     minitest (5.10.2)
-    mobility (0.1.19)
-      i18n (>= 0.6.10, < 0.9)
-      request_store (~> 1.0)
     nio4r (2.1.0)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
@@ -221,6 +226,7 @@ PLATFORMS
 DEPENDENCIES
   binda!
   binda_multilanguage!
+  mobility!
   pg (~> 0.21)
   rspec-rails (>= 3.5, < 3.7)
 
