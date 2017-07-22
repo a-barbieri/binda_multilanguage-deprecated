@@ -9,7 +9,7 @@ Binda Multilanguage uses [Mobility gem](https://github.com/shioyama/mobility), w
 ## Installation
 To install Binda Multilanguage add this to your gemfile:
 ```ruby
-gem "binda_multilanguage",   github: "lacolonia/binda_multilanguage",   ref "ft-mobility"
+gem "binda_multilanguage",   github: "lacolonia/binda_multilanguage"
 gem "mobility",              github: "shioyama/mobility",               ref: "fix_generators_location"
 
 ```
