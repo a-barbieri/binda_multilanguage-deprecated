@@ -11,14 +11,13 @@ To install Binda Multilanguage add this to your gemfile:
 
 ```ruby
 gem "binda_multilanguage"
-gem "mobility"
 
 ```
 Then run bundle followed by Binda Multilanguage generator:
 
 ```bash
 $ bundle
-$ rails generate binda:multilanguage
+$ rails generate binda_multilanguage:install
 ```
 
 # Usage
@@ -35,11 +34,8 @@ gem install mobility -P MediumSecurity
 
 The MediumSecurity trust profile will verify signed gems, but allow the installation of unsigned dependencies. See current [documentation](https://github.com/shioyama/mobility#installation) for more details.
 
-# Contributing
-Contribution directions go here.
-
-# License
+### License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
-# Credits
-Thank you to the guys behind [Mobility](https://github.com/shioyama/mobility) for the excellent job.
+### Credits
+[Mobility gem](https://github.com/shioyama/mobility).
