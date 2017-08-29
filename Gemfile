@@ -14,6 +14,5 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 
 group :development, :test do
-  gem "binda",        github: "a-barbieri/binda"
-  gem "mobility",     github: "shioyama/mobility", ref: "fix_generators_location"
+  gem "binda",        path: "../binda"
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170722093824) do
+ActiveRecord::Schema.define(version: 20170829151660) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,15 @@ ActiveRecord::Schema.define(version: 20170722093824) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "binda_boards", id: :serial, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug"
+    t.integer "position"
+    t.integer "structure_id"
+    t.index ["slug"], name: "index_binda_boards_on_slug", unique: true
+    t.index ["structure_id"], name: "index_binda_boards_on_structure_id"
+  end
+
   create_table "binda_categories", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.string "slug"
@@ -53,14 +62,33 @@ ActiveRecord::Schema.define(version: 20170722093824) do
     t.index ["component_id"], name: "index_binda_categories_components_on_component_id"
   end
 
+  create_table "binda_choices", id: :serial, force: :cascade do |t|
+    t.string "label"
+    t.string "value"
+    t.integer "field_setting_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["field_setting_id"], name: "index_binda_choices_on_field_setting_id"
+  end
+
+  create_table "binda_choices_selections", id: :serial, force: :cascade do |t|
+    t.integer "choice_id"
+    t.integer "selection_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["choice_id"], name: "index_binda_choices_selections_on_choice_id"
+    t.index ["selection_id"], name: "index_binda_choices_selections_on_selection_id"
+  end
+
   create_table "binda_components", id: :serial, force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
     t.string "slug"
     t.string "publish_state"
     t.integer "position"
     t.integer "structure_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "lang", default: "en", null: false
     t.index ["slug"], name: "index_binda_components_on_slug", unique: true
     t.index ["structure_id"], name: "index_binda_components_on_structure_id"
   end
@@ -99,13 +127,12 @@ ActiveRecord::Schema.define(version: 20170722093824) do
     t.string "field_type"
     t.integer "field_group_id"
     t.string "ancestry"
+    t.boolean "allow_null", default: false
+    t.integer "default_choice_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "choices"
-    t.text "default_choice"
-    t.boolean "allow_null"
-    t.boolean "boolean_choices"
     t.index ["ancestry"], name: "index_binda_field_settings_on_ancestry"
+    t.index ["default_choice_id"], name: "index_binda_field_settings_on_default_choice_id"
     t.index ["field_group_id"], name: "index_binda_field_settings_on_field_group_id"
     t.index ["slug"], name: "index_binda_field_settings_on_slug", unique: true
   end
@@ -132,13 +159,15 @@ ActiveRecord::Schema.define(version: 20170722093824) do
     t.index ["fieldable_type", "fieldable_id"], name: "index_binda_repeaters_on_fieldable_type_and_fieldable_id"
   end
 
-  create_table "binda_settings", id: :serial, force: :cascade do |t|
-    t.string "name", null: false
-    t.string "slug"
-    t.text "content"
-    t.integer "position"
-    t.boolean "is_true", default: false
-    t.index ["slug"], name: "index_binda_settings_on_slug", unique: true
+  create_table "binda_selections", id: :serial, force: :cascade do |t|
+    t.integer "field_setting_id"
+    t.string "fieldable_type"
+    t.integer "fieldable_id"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["field_setting_id"], name: "index_binda_selections_on_field_setting_id"
+    t.index ["fieldable_type", "fieldable_id"], name: "index_binda_selections_on_fieldable_type_and_fieldable_id"
   end
 
   create_table "binda_structures", id: :serial, force: :cascade do |t|
@@ -146,6 +175,7 @@ ActiveRecord::Schema.define(version: 20170722093824) do
     t.string "slug"
     t.integer "position"
     t.boolean "has_categories", default: true
+    t.string "instance_type", default: "component", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_binda_structures_on_slug", unique: true
@@ -157,22 +187,11 @@ ActiveRecord::Schema.define(version: 20170722093824) do
     t.integer "field_setting_id"
     t.string "fieldable_type"
     t.integer "fieldable_id"
+    t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "type"
     t.index ["field_setting_id"], name: "index_binda_texts_on_field_setting_id"
     t.index ["fieldable_type", "fieldable_id"], name: "index_binda_texts_on_fieldable_type_and_fieldable_id"
-  end
-
-  create_table "binda_truefalses", force: :cascade do |t|
-    t.boolean "is_true", default: false
-    t.bigint "field_setting_id"
-    t.string "fieldable_type"
-    t.bigint "fieldable_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["field_setting_id"], name: "index_binda_truefalses_on_field_setting_id"
-    t.index ["fieldable_type", "fieldable_id"], name: "index_binda_truefalses_on_fieldable_type_and_fieldable_id"
   end
 
   create_table "binda_users", id: :serial, force: :cascade do |t|
@@ -212,6 +231,31 @@ ActiveRecord::Schema.define(version: 20170722093824) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "mobility_string_translations", force: :cascade do |t|
+    t.string "locale"
+    t.string "key"
+    t.string "value"
+    t.integer "translatable_id"
+    t.string "translatable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["translatable_id", "translatable_type", "key"], name: "index_mobility_string_translations_on_translatable_attribute"
+    t.index ["translatable_id", "translatable_type", "locale", "key"], name: "index_mobility_string_translations_on_keys", unique: true
+    t.index ["translatable_type", "key", "value", "locale"], name: "index_mobility_string_translations_on_query_keys"
+  end
+
+  create_table "mobility_text_translations", force: :cascade do |t|
+    t.string "locale"
+    t.string "key"
+    t.text "value"
+    t.integer "translatable_id"
+    t.string "translatable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["translatable_id", "translatable_type", "key"], name: "index_mobility_text_translations_on_translatable_attribute"
+    t.index ["translatable_id", "translatable_type", "locale", "key"], name: "index_mobility_text_translations_on_keys", unique: true
   end
 
 end

@@ -5,7 +5,23 @@ require File.expand_path('../dummy/config/environment', __FILE__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+
 # Add additional requires below this line. Rails is not loaded until this point!
+
+# https://github.com/plataformatec/devise/wiki/How-To:-Test-controllers-with-Rails-3-and-4-%28and-RSpec%29#controller-specs
+require 'devise'
+
+# https://github.com/teamcapybara/capybara#using-capybara-with-rspec
+require 'capybara/rspec'
+Capybara.javascript_driver = :selenium
+ 
+# https://github.com/thoughtbot/factory_girl_rails/issues/167#issuecomment-226360492
+require 'factory_girl_rails'
+
+# https://github.com/DatabaseCleaner/database_cleaner#how-to-use
+require 'database_cleaner'
+
+require 'pry'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -25,6 +41,8 @@ require 'rspec/rails'
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
+
+# Rails.application.config.paths['db/migrate'] = ['/spec/dummy/db/migrate']
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -54,4 +72,40 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+
+  # DEVISE
+  # ------
+  # Include Devise Helper
+  # https://github.com/plataformatec/devise/wiki/How-To:-Test-with-Capybara
+  # (are u sure that the following line is working?)
+  include Warden::Test::Helpers
+  # https://github.com/plataformatec/devise#test-helpers
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
+  # https://github.com/plataformatec/devise#integration-tests
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+
+
+  # FACTORY GIRL
+  # ------------
+  # Include Factory Girl Methods
+  # https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md
+  config.include FactoryGirl::Syntax::Methods
+
+
+  # CLEAN TEST DATABASE BEFORE TESTING
+  # ----------------------------------
+  # https://github.com/DatabaseCleaner/database_cleaner#rspec-with-capybara-example
+  # https://github.com/DatabaseCleaner/database_cleaner#rspec-example
+  config.before(:suite) do
+
+    DatabaseCleaner.clean_with( :truncation, except: %w(ar_internal_metadata) )
+    
+    # http://stackoverflow.com/a/19930700/1498118
+    Rails.application.load_seed # loading seeds
+
+    FactoryGirl.create(:user)
+  end
+
 end
