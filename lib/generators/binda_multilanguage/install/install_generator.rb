@@ -9,9 +9,9 @@ class BindaMultilanguage::InstallGenerator < Rails::Generators::Base
 
   def disclaimer
     puts 
-    puts "============================================================================="
+    puts "==============================================================================="
     puts "                          BINDA MULTILANGUAGE SETUP"
-    puts "============================================================================="
+    puts "==============================================================================="
     puts 
   end
 
@@ -24,13 +24,9 @@ class BindaMultilanguage::InstallGenerator < Rails::Generators::Base
       migration_template "#{template}.rb", Rails.root.join("db/migrate/#{template}.rb")
     end
   end
-   
-  def run_migrations
-    rake 'db:migrate'
-  end
-
+  
   def install_mobility
-    exec 'rails generate mobility:install'
+    exec 'rails generate mobility:install && rails db:migrate'
   end
 
 end

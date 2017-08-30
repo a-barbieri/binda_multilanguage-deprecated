@@ -10,7 +10,6 @@ describe "Component editor", type: :feature do
 	it "set language based on 'lang' parameter" do
 		sign_in user
 		path = binda.edit_structure_component_path @structure, @structure.components.first
-		binding.pry
 		visit path 
 		expect( page ).to have_current_path( path )
 	end

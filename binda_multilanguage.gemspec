@@ -31,5 +31,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "selenium-webdriver",       "~> 3.5"
   s.add_development_dependency "factory_girl_rails",       "~> 4.8"
   s.add_development_dependency "database_cleaner",         "~> 1.6"
+  s.add_development_dependency "travis",                   "~> 1.8"
 
 end
