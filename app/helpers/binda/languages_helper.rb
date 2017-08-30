@@ -1,0 +1,2 @@
+module Binda::LanguagesHelper
+end

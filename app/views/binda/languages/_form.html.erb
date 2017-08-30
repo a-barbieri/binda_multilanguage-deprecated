@@ -1,0 +1,27 @@
+<%= form_with(model: binda_language, local: true) do |form| %>
+  <% if binda_language.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(binda_language.errors.count, "error") %> prohibited this binda_language from being saved:</h2>
+
+      <ul>
+      <% binda_language.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :lang %>
+    <%= form.text_field :lang, id: :binda_language_lang %>
+  </div>
+
+  <div class="field">
+    <%= form.label :selected %>
+    <%= form.check_box :selected, id: :binda_language_selected %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

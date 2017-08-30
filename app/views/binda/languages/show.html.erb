@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Lang:</strong>
+  <%= @binda_language.lang %>
+</p>
+
+<p>
+  <strong>Selected:</strong>
+  <%= @binda_language.selected %>
+</p>
+
+<%= link_to 'Edit', edit_binda_language_path(@binda_language) %> |
+<%= link_to 'Back', binda_languages_path %>

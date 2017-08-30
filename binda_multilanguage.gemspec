@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "github-markup",            "~> 1.6"
   s.add_development_dependency "pry-rails",                "~> 0.3.5"
   s.add_development_dependency "devise",                   ">= 4.1",      "< 4.4"
-  s.add_development_dependency "rspec-rails",              ">= 3.5",       "< 3.7"
+  s.add_development_dependency "rspec-rails",              ">= 3.5",      "< 3.7"
   s.add_development_dependency "capybara",                 "~> 2.14"
   s.add_development_dependency "selenium-webdriver",       "~> 3.5"
   s.add_development_dependency "factory_girl_rails",       "~> 4.8"
