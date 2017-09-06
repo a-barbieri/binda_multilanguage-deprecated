@@ -25,6 +25,8 @@ require 'rails_helper'
 
 RSpec.describe Binda::LanguagesController, type: :controller do
 
+  routes { Binda::Engine.routes }
+
   # This should return the minimal set of attributes required to create a valid
   # Binda::Language. As you add validations to Binda::Language, be sure to
   # adjust the attributes here as well.
@@ -134,7 +136,7 @@ RSpec.describe Binda::LanguagesController, type: :controller do
     it "redirects to the binda_languages list" do
       language = Binda::Language.create! valid_attributes
       delete :destroy, params: {id: language.to_param}, session: valid_session
-      expect(response).to redirect_to(binda_languages_url)
+      expect(response).to redirect_to(binda.languages_url)
     end
   end
 

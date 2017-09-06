@@ -1,4 +1,4 @@
-<%= form_with(model: binda_language, local: true) do |form| %>
+<%= form_with(model: binda_language, local: true, url: binda.language_path ) do |form| %>
   <% if binda_language.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(binda_language.errors.count, "error") %> prohibited this binda_language from being saved:</h2>

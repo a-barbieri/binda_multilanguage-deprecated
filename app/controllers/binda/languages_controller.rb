@@ -42,7 +42,7 @@ class Binda::LanguagesController < ApplicationController
   # DELETE /binda/languages/1
   def destroy
     @binda_language.destroy
-    redirect_to binda_languages_url, notice: 'Language was successfully destroyed.'
+    redirect_to binda.languages_url, notice: 'Language was successfully destroyed.'
   end
 
   private

@@ -19,6 +19,8 @@ Gem::Specification.new do |s|
   s.add_dependency "rails",                                ">= 5.0", "< 5.2"
   s.add_dependency "mobility",                             "~> 0.2"
   s.add_dependency "friendly_id-mobility",                 "~> 0.4"
+  s.add_dependency "country_select",                       "~> 3.1"
+  s.add_dependency "countries",                            "~> 2.1"
 
   s.add_development_dependency "pg",                       "~> 0.21"
   s.add_development_dependency "yard",                     "~> 0.9"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170830101811) do
+ActiveRecord::Schema.define(version: 20170830152023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,6 +146,11 @@ ActiveRecord::Schema.define(version: 20170830101811) do
     t.datetime "updated_at", null: false
     t.index ["field_setting_id"], name: "index_binda_galleries_on_field_setting_id"
     t.index ["fieldable_type", "fieldable_id"], name: "index_binda_galleries_on_fieldable_type_and_fieldable_id"
+  end
+
+  create_table "binda_languages", id: :serial, force: :cascade do |t|
+    t.string "lang", null: false
+    t.boolean "selected", default: false, null: false
   end
 
   create_table "binda_repeaters", id: :serial, force: :cascade do |t|

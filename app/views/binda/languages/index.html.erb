@@ -16,9 +16,9 @@
       <tr>
         <td><%= binda_language.lang %></td>
         <td><%= binda_language.selected %></td>
-        <td><%= link_to 'Show', binda_language %></td>
-        <td><%= link_to 'Edit', edit_binda_language_path(binda_language) %></td>
-        <td><%= link_to 'Destroy', binda_language, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', binda.language_path( binda_language ) %></td>
+        <td><%= link_to 'Edit', binda.edit_language_path(binda_language) %></td>
+        <td><%= link_to 'Destroy', binda.language_path( binda_language ), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Binda Language', new_binda_language_path %>
+<%= link_to 'New Binda Language', binda.new_language_path %>

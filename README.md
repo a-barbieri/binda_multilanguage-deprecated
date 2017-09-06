@@ -4,6 +4,7 @@ This is the official multilanguage package for Binda.
 [![Build Status](https://travis-ci.org/lacolonia/binda_multilanguage.svg?branch=master)](https://travis-ci.org/lacolonia/binda_multilanguage)
 [![Code Climate](https://codeclimate.com/github/lacolonia/binda/badges/gpa.svg)](https://codeclimate.com/github/lacolonia/binda)
 [![Issue Count](https://codeclimate.com/github/lacolonia/binda/badges/issue_count.svg)](https://codeclimate.com/github/lacolonia/binda)
+[![Dependency Status](https://gemnasium.com/badges/github.com/lacolonia/binda_multilanguage.svg)](https://gemnasium.com/github.com/lacolonia/binda_multilanguage)
 
 # Requirements
 In order to use Binda Multilanguage you need to have already installed Binda CMS. See [Binda's documentation](http://www.rubydoc.info/gems/binda) on how to install it.
